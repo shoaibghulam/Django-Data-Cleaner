@@ -1,0 +1,107 @@
+{% extends 'dashboard/layout/base.html' %}
+{% load static %}
+{% block body %}
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Dashboard</h4>
+            </div>
+         
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Three charts -->
+        <!-- ============================================================== -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="white-box analytics-info">
+                    <h3 class="box-title">Total Excel Files</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div id="sparklinedash"><canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                            </div>
+                        </li>
+                        <li class="ms-auto"><span class="counter text-success">{{numberOfSheet}}</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="white-box analytics-info">
+                    <h3 class="box-title">Total Rows</h3>
+                    <ul class="list-inline two-part d-flex align-items-center mb-0">
+                        <li>
+                            <div id="sparklinedash2"><canvas width="67" height="30"
+                                    style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                            </div>
+                        </li>
+                        <li class="ms-auto"><span class="counter text-purple">{{totalData}}</span></li>
+                    </ul>
+                </div>
+            </div>
+         
+        </div>
+        <!-- ============================================================== -->
+        <!-- PRODUCTS YEARLY SALES -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+               <div class="white-box">
+                <table id="datatable" class="table " style="width:100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Title</th>
+                            <th>Action</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in sheetData %}
+                        <tr>
+        
+                            <td>{{data.sheetName}}</td>
+                            <td><a class="btn  btn-outline-purple" href="data-view/{{data.pk}}"><i class="fa fa-eye mr-1"></i> View</a> <a class="btn btn-outline-danger" href="delete-sheet/{{data.pk}}"><i class="fa fa-trash mr-1"></i> Delete</a></td>
+                         
+                        </tr>
+                      
+                        {% endfor %}
+                      
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Number</th>
+                            
+                        </tr>
+                    </tfoot>
+                </table>
+               </div>
+            </div>
+        </div>
+    
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+  
+</div>
+{% endblock body %}
+{% block script %}
+  <script>
+     $(document).ready(function () {
+    $('#datatable').DataTable();
+});
+  </script>
+{% endblock script %}
